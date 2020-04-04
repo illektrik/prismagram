@@ -501,7 +501,7 @@ export const adjectives = [
   "terrific"
 ];
 
-const nouns = [
+export const nouns = [
   "cap",
   "comparison",
   "waves",

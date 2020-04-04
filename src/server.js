@@ -1,6 +1,10 @@
 require("dotenv").config;
 import {GraphQLServer} from "graphql-yoga";
 import logger from 'morgan';
+import dotenv from 'dotenv';
+import path from 'path';
+
+dotenv.config({path: path.resolve(__dirname, ".env")});
 
 import schema from "./schema";
 
