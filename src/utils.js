@@ -1,4 +1,10 @@
 import nodemailer from 'nodemailer';
+import sgTransport from 'nodemailer-sendgrid-transport'
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+import path from 'path';
+
+dotenv.config({path: path.resolve(__dirname, ".env")});
 
 import {adjectives, nouns} from "./words";
 const SibApiV3Sdk = require('sib-api-v3-sdk');
@@ -9,7 +15,14 @@ export const generateSecret = () => {
 };
 
 export const sendMail = (email) => {
-  return null
+  const options = {
+    auth: {
+      api_user: process.env.SENDGRID_USERNAME,
+      api_key: process.env.SENDGRID_PASSWORD
+    }
+  };
+  const client = nodemailer.createTransport(sgTransport(options));
+  return client.sendMail(email)
 };
 
 export const sendSecretMail = (adress, secret) => {
@@ -18,5 +31,12 @@ export const sendSecretMail = (adress, secret) => {
     to: adress,
     subject: 'Login secret for prismagram',
     html: `Hello, your login secret is ${secret}.<br/> Copy paste to log in!`
+  };
+   try {
+     sendMail(email);
+   } catch (err) {
+     console.log(err)
   }
 };
+
+export const generateToken = (id) => jwt.sign({id}, process.env.JWT_SECRET);
