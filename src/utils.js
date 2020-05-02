@@ -15,22 +15,22 @@ export const generateSecret = () => {
 };
 
 export const sendMail = (email) => {
-  const options = {
+  const client = nodemailer.createTransport({
+    service: 'gmail',
     auth: {
-      api_user: process.env.SENDGRID_USERNAME,
-      api_key: process.env.SENDGRID_PASSWORD
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PASSWORD
     }
-  };
-  const client = nodemailer.createTransport(sgTransport(options));
+  });
   return client.sendMail(email)
 };
 
 export const sendSecretMail = (adress, secret) => {
   const email = {
-    from: "fucker@prismagram.com",
+    from: "info@prismagram.com",
     to: adress,
     subject: 'Login secret for prismagram',
-    html: `Hello, your login secret is ${secret}.<br/> Copy paste to log in!`
+    html: `Hello, your login secret is <strong>${secret}</strong>.<br/> Copy paste to log in!`
   };
    try {
      sendMail(email);

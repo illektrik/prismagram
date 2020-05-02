@@ -9,6 +9,7 @@ import './env';
 import schema from "./schema";
 import './passport';
 import {prisma} from "../generated/prisma-client";
+import {sendSecretMail} from "./utils";
 
 const PORT = process.env.PORT;
 
