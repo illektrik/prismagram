@@ -8,6 +8,7 @@ import logger from 'morgan';
 import './env';
 import schema from "./schema";
 import './passport';
+import {isAuthenticated} from "./middlewares";
 import {prisma} from "../generated/prisma-client";
 import {sendSecretMail} from "./utils";
 
