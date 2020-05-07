@@ -3,6 +3,9 @@ type User {
   firstName: String
   lastName: String
   userName: String!
+  fullName: String
+  isFollowing: Boolean!
+  isSelf: Boolean!
   email: String!
   bio: String
   followers: [User!]!
@@ -21,6 +24,7 @@ type Post {
   caption: String!
   likes: [Like!]!
   comments: [Comment!]!
+  isLiked: Boolean!
 }
 
 type Like {
