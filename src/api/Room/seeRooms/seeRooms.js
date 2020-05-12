@@ -1,4 +1,6 @@
 import {isAuthenticated} from "../../../middlewares";
+import {ROOM_FRAGMENT} from "../../../fragments";
+import {prisma} from "../../../../generated/prisma-client";
 
 export default {
   Query: {
@@ -9,7 +11,7 @@ export default {
         participants_some: {
           id: user.id
         }
-      }})
+      }}).$fragment(ROOM_FRAGMENT)
     }
   }
 }
