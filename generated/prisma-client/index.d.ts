@@ -351,7 +351,13 @@ export type PostOrderByInput =
   | "location_ASC"
   | "location_DESC"
   | "caption_ASC"
-  | "caption_DESC";
+  | "caption_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC"
+  | "createdTime_ASC"
+  | "createdTime_DESC";
 
 export type FileOrderByInput = "id_ASC" | "id_DESC" | "url_ASC" | "url_DESC";
 
@@ -361,7 +367,11 @@ export type CommentOrderByInput =
   | "id_ASC"
   | "id_DESC"
   | "text_ASC"
-  | "text_DESC";
+  | "text_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type RoomOrderByInput = "id_ASC" | "id_DESC";
 
@@ -369,7 +379,11 @@ export type MessageOrderByInput =
   | "id_ASC"
   | "id_DESC"
   | "test_ASC"
-  | "test_DESC";
+  | "test_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
@@ -566,6 +580,36 @@ export interface PostWhereInput {
   comments_some?: Maybe<CommentWhereInput>;
   comments_none?: Maybe<CommentWhereInput>;
   user?: Maybe<UserWhereInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  createdTime?: Maybe<String>;
+  createdTime_not?: Maybe<String>;
+  createdTime_in?: Maybe<String[] | String>;
+  createdTime_not_in?: Maybe<String[] | String>;
+  createdTime_lt?: Maybe<String>;
+  createdTime_lte?: Maybe<String>;
+  createdTime_gt?: Maybe<String>;
+  createdTime_gte?: Maybe<String>;
+  createdTime_contains?: Maybe<String>;
+  createdTime_not_contains?: Maybe<String>;
+  createdTime_starts_with?: Maybe<String>;
+  createdTime_not_starts_with?: Maybe<String>;
+  createdTime_ends_with?: Maybe<String>;
+  createdTime_not_ends_with?: Maybe<String>;
   AND?: Maybe<PostWhereInput[] | PostWhereInput>;
   OR?: Maybe<PostWhereInput[] | PostWhereInput>;
   NOT?: Maybe<PostWhereInput[] | PostWhereInput>;
@@ -659,6 +703,22 @@ export interface CommentWhereInput {
   text_not_ends_with?: Maybe<String>;
   user?: Maybe<UserWhereInput>;
   post?: Maybe<PostWhereInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<CommentWhereInput[] | CommentWhereInput>;
   OR?: Maybe<CommentWhereInput[] | CommentWhereInput>;
   NOT?: Maybe<CommentWhereInput[] | CommentWhereInput>;
@@ -722,6 +782,22 @@ export interface MessageWhereInput {
   from?: Maybe<UserWhereInput>;
   to?: Maybe<UserWhereInput>;
   room?: Maybe<RoomWhereInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<MessageWhereInput[] | MessageWhereInput>;
   OR?: Maybe<MessageWhereInput[] | MessageWhereInput>;
   NOT?: Maybe<MessageWhereInput[] | MessageWhereInput>;
@@ -816,6 +892,7 @@ export interface PostCreateWithoutUserInput {
   caption: String;
   likes?: Maybe<LikeCreateManyWithoutPostInput>;
   comments?: Maybe<CommentCreateManyWithoutPostInput>;
+  createdTime?: Maybe<String>;
 }
 
 export interface FileCreateManyWithoutPostInput {
@@ -904,6 +981,7 @@ export interface PostCreateWithoutLikesInput {
   caption: String;
   comments?: Maybe<CommentCreateManyWithoutPostInput>;
   user?: Maybe<UserCreateOneWithoutPostsInput>;
+  createdTime?: Maybe<String>;
 }
 
 export interface CommentCreateManyWithoutPostInput {
@@ -965,6 +1043,7 @@ export interface PostCreateWithoutCommentsInput {
   caption: String;
   likes?: Maybe<LikeCreateManyWithoutPostInput>;
   user?: Maybe<UserCreateOneWithoutPostsInput>;
+  createdTime?: Maybe<String>;
 }
 
 export interface RoomCreateManyWithoutParticipantsInput {
@@ -1118,6 +1197,7 @@ export interface PostUpdateWithoutUserDataInput {
   caption?: Maybe<String>;
   likes?: Maybe<LikeUpdateManyWithoutPostInput>;
   comments?: Maybe<CommentUpdateManyWithoutPostInput>;
+  createdTime?: Maybe<String>;
 }
 
 export interface FileUpdateManyWithoutPostInput {
@@ -1331,6 +1411,7 @@ export interface PostUpdateWithoutLikesDataInput {
   caption?: Maybe<String>;
   comments?: Maybe<CommentUpdateManyWithoutPostInput>;
   user?: Maybe<UserUpdateOneWithoutPostsInput>;
+  createdTime?: Maybe<String>;
 }
 
 export interface CommentUpdateManyWithoutPostInput {
@@ -1401,6 +1482,22 @@ export interface CommentScalarWhereInput {
   text_not_starts_with?: Maybe<String>;
   text_ends_with?: Maybe<String>;
   text_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<CommentScalarWhereInput[] | CommentScalarWhereInput>;
   OR?: Maybe<CommentScalarWhereInput[] | CommentScalarWhereInput>;
   NOT?: Maybe<CommentScalarWhereInput[] | CommentScalarWhereInput>;
@@ -1487,6 +1584,7 @@ export interface PostUpdateWithoutCommentsDataInput {
   caption?: Maybe<String>;
   likes?: Maybe<LikeUpdateManyWithoutPostInput>;
   user?: Maybe<UserUpdateOneWithoutPostsInput>;
+  createdTime?: Maybe<String>;
 }
 
 export interface PostUpsertWithoutCommentsInput {
@@ -1625,6 +1723,22 @@ export interface MessageScalarWhereInput {
   test_not_starts_with?: Maybe<String>;
   test_ends_with?: Maybe<String>;
   test_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<MessageScalarWhereInput[] | MessageScalarWhereInput>;
   OR?: Maybe<MessageScalarWhereInput[] | MessageScalarWhereInput>;
   NOT?: Maybe<MessageScalarWhereInput[] | MessageScalarWhereInput>;
@@ -1900,6 +2014,36 @@ export interface PostScalarWhereInput {
   caption_not_starts_with?: Maybe<String>;
   caption_ends_with?: Maybe<String>;
   caption_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  createdTime?: Maybe<String>;
+  createdTime_not?: Maybe<String>;
+  createdTime_in?: Maybe<String[] | String>;
+  createdTime_not_in?: Maybe<String[] | String>;
+  createdTime_lt?: Maybe<String>;
+  createdTime_lte?: Maybe<String>;
+  createdTime_gt?: Maybe<String>;
+  createdTime_gte?: Maybe<String>;
+  createdTime_contains?: Maybe<String>;
+  createdTime_not_contains?: Maybe<String>;
+  createdTime_starts_with?: Maybe<String>;
+  createdTime_not_starts_with?: Maybe<String>;
+  createdTime_ends_with?: Maybe<String>;
+  createdTime_not_ends_with?: Maybe<String>;
   AND?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
   OR?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
   NOT?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
@@ -1913,6 +2057,7 @@ export interface PostUpdateManyWithWhereNestedInput {
 export interface PostUpdateManyDataInput {
   location?: Maybe<String>;
   caption?: Maybe<String>;
+  createdTime?: Maybe<String>;
 }
 
 export interface UserUpsertWithWhereUniqueWithoutFollowingInput {
@@ -1948,6 +2093,7 @@ export interface PostCreateWithoutFilesInput {
   likes?: Maybe<LikeCreateManyWithoutPostInput>;
   comments?: Maybe<CommentCreateManyWithoutPostInput>;
   user?: Maybe<UserCreateOneWithoutPostsInput>;
+  createdTime?: Maybe<String>;
 }
 
 export interface FileUpdateInput {
@@ -1970,6 +2116,7 @@ export interface PostUpdateWithoutFilesDataInput {
   likes?: Maybe<LikeUpdateManyWithoutPostInput>;
   comments?: Maybe<CommentUpdateManyWithoutPostInput>;
   user?: Maybe<UserUpdateOneWithoutPostsInput>;
+  createdTime?: Maybe<String>;
 }
 
 export interface PostUpsertWithoutFilesInput {
@@ -2112,6 +2259,7 @@ export interface PostCreateInput {
   likes?: Maybe<LikeCreateManyWithoutPostInput>;
   comments?: Maybe<CommentCreateManyWithoutPostInput>;
   user?: Maybe<UserCreateOneWithoutPostsInput>;
+  createdTime?: Maybe<String>;
 }
 
 export interface PostUpdateInput {
@@ -2121,11 +2269,13 @@ export interface PostUpdateInput {
   likes?: Maybe<LikeUpdateManyWithoutPostInput>;
   comments?: Maybe<CommentUpdateManyWithoutPostInput>;
   user?: Maybe<UserUpdateOneWithoutPostsInput>;
+  createdTime?: Maybe<String>;
 }
 
 export interface PostUpdateManyMutationInput {
   location?: Maybe<String>;
   caption?: Maybe<String>;
+  createdTime?: Maybe<String>;
 }
 
 export interface RoomCreateInput {
@@ -2249,6 +2399,8 @@ export interface NodeNode {
 export interface Comment {
   id: ID_Output;
   text: String;
+  createdAt?: DateTimeOutput;
+  updatedAt?: DateTimeOutput;
 }
 
 export interface CommentPromise extends Promise<Comment>, Fragmentable {
@@ -2256,6 +2408,8 @@ export interface CommentPromise extends Promise<Comment>, Fragmentable {
   text: () => Promise<String>;
   user: <T = UserPromise>() => T;
   post: <T = PostPromise>() => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface CommentSubscription
@@ -2265,6 +2419,8 @@ export interface CommentSubscription
   text: () => Promise<AsyncIterator<String>>;
   user: <T = UserSubscription>() => T;
   post: <T = PostSubscription>() => T;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface CommentNullablePromise
@@ -2274,6 +2430,8 @@ export interface CommentNullablePromise
   text: () => Promise<String>;
   user: <T = UserPromise>() => T;
   post: <T = PostPromise>() => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface User {
@@ -2490,6 +2648,9 @@ export interface Post {
   id: ID_Output;
   location?: String;
   caption: String;
+  createdAt?: DateTimeOutput;
+  updatedAt?: DateTimeOutput;
+  createdTime?: String;
 }
 
 export interface PostPromise extends Promise<Post>, Fragmentable {
@@ -2524,6 +2685,9 @@ export interface PostPromise extends Promise<Post>, Fragmentable {
     last?: Int;
   }) => T;
   user: <T = UserPromise>() => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  createdTime: () => Promise<String>;
 }
 
 export interface PostSubscription
@@ -2560,6 +2724,9 @@ export interface PostSubscription
     last?: Int;
   }) => T;
   user: <T = UserSubscription>() => T;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdTime: () => Promise<AsyncIterator<String>>;
 }
 
 export interface PostNullablePromise
@@ -2596,6 +2763,9 @@ export interface PostNullablePromise
     last?: Int;
   }) => T;
   user: <T = UserPromise>() => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  createdTime: () => Promise<String>;
 }
 
 export interface File {
@@ -2728,6 +2898,8 @@ export interface RoomNullablePromise
 export interface Message {
   id: ID_Output;
   test: String;
+  createdAt?: DateTimeOutput;
+  updatedAt?: DateTimeOutput;
 }
 
 export interface MessagePromise extends Promise<Message>, Fragmentable {
@@ -2736,6 +2908,8 @@ export interface MessagePromise extends Promise<Message>, Fragmentable {
   from: <T = UserPromise>() => T;
   to: <T = UserPromise>() => T;
   room: <T = RoomPromise>() => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface MessageSubscription
@@ -2746,6 +2920,8 @@ export interface MessageSubscription
   from: <T = UserSubscription>() => T;
   to: <T = UserSubscription>() => T;
   room: <T = RoomSubscription>() => T;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface MessageNullablePromise
@@ -2756,6 +2932,8 @@ export interface MessageNullablePromise
   from: <T = UserPromise>() => T;
   to: <T = UserPromise>() => T;
   room: <T = RoomPromise>() => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface CommentConnection {
@@ -3203,6 +3381,8 @@ export interface CommentSubscriptionPayloadSubscription
 export interface CommentPreviousValues {
   id: ID_Output;
   text: String;
+  createdAt?: DateTimeOutput;
+  updatedAt?: DateTimeOutput;
 }
 
 export interface CommentPreviousValuesPromise
@@ -3210,6 +3390,8 @@ export interface CommentPreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   text: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface CommentPreviousValuesSubscription
@@ -3217,6 +3399,8 @@ export interface CommentPreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   text: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface FileSubscriptionPayload {
@@ -3332,6 +3516,8 @@ export interface MessageSubscriptionPayloadSubscription
 export interface MessagePreviousValues {
   id: ID_Output;
   test: String;
+  createdAt?: DateTimeOutput;
+  updatedAt?: DateTimeOutput;
 }
 
 export interface MessagePreviousValuesPromise
@@ -3339,6 +3525,8 @@ export interface MessagePreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   test: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface MessagePreviousValuesSubscription
@@ -3346,6 +3534,8 @@ export interface MessagePreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   test: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface PostSubscriptionPayload {
@@ -3377,6 +3567,9 @@ export interface PostPreviousValues {
   id: ID_Output;
   location?: String;
   caption: String;
+  createdAt?: DateTimeOutput;
+  updatedAt?: DateTimeOutput;
+  createdTime?: String;
 }
 
 export interface PostPreviousValuesPromise
@@ -3385,6 +3578,9 @@ export interface PostPreviousValuesPromise
   id: () => Promise<ID_Output>;
   location: () => Promise<String>;
   caption: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  createdTime: () => Promise<String>;
 }
 
 export interface PostPreviousValuesSubscription
@@ -3393,6 +3589,9 @@ export interface PostPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   location: () => Promise<AsyncIterator<String>>;
   caption: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdTime: () => Promise<AsyncIterator<String>>;
 }
 
 export interface RoomSubscriptionPayload {
@@ -3508,6 +3707,16 @@ export type ID_Output = string;
 The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
 */
 export type String = string;
+
+/*
+DateTime scalar input type, allowing Date
+*/
+export type DateTimeInput = Date | string;
+
+/*
+DateTime scalar output type, which is always a string
+*/
+export type DateTimeOutput = string;
 
 /*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.

@@ -23,6 +23,9 @@ type Post {
   likes: [Like!]! @relation(name: "LikeOfPost", onDelete: CASCADE)
   comments: [Comment!]! @relation(name: "CommentOfPost", onDelete: CASCADE)
   user: User @relation(name: "PostOfUser")
+  createdAt: DateTime @createdAt
+  updatedAt: DateTime @updatedAt
+  createdTime: String
 }
 
 type Like {
@@ -36,6 +39,8 @@ type Comment {
   text: String!
   user: User  @relation(name: "CommentOfUser")
   post: Post @relation(name: "CommentOfPost")
+  createdAt: DateTime @createdAt
+  updatedAt: DateTime @updatedAt
 }
 
 type File {
@@ -56,4 +61,6 @@ type Message {
   from: User! @relation(name: "From")
   to: User! @relation(name: "To")
   room: Room!
+  createdAt: DateTime @createdAt
+  updatedAt: DateTime @updatedAt
 }

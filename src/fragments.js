@@ -28,8 +28,10 @@ export const FULL_POST_FRAGMENT = `
     caption
     location
     id
+    createdTime
     files {
-      ${FILE_FRAGMENT}
+      id
+      url
     }
     comments {
       ${COMMENT_FRAGMENT}
@@ -56,5 +58,28 @@ export const ROOM_FRAGMENT = `
     id
     participants { ${USER_FRAGMENT } }
     messages { ${MESSAGE_FRAGMENT} }
+  }
+`;
+
+export const SEE_USER_FRAGMENT =`
+  fragment UserParts on User {
+    id
+    userName
+    avatar
+    firstName
+    lastName
+    bio
+    likes {
+      id
+    }
+    followers{
+      id
+    }
+    following {
+      id
+    }
+    comments {
+      id
+    }
   }
 `;

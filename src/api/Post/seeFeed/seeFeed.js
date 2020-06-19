@@ -1,5 +1,6 @@
 import {isAuthenticated} from "../../../middlewares";
 import {prisma} from "../../../../generated/prisma-client";
+import {FULL_POST_FRAGMENT} from "../../../fragments";
 
 export default {
   Query: {
@@ -10,11 +11,11 @@ export default {
       return prisma.posts({
         where: {
           user: {
-            id_in: [...following.map(user => user.id), (user.id)]
+            id_in: [...following.map(user => user.id), user.id]
           }
         },
-        orderBy: "caption_DESC"
-      });
+        orderBy: "caption_ASC"
+      }).$fragment(FULL_POST_FRAGMENT);
     }
   }
 }

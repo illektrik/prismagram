@@ -40,6 +40,8 @@ type Comment {
   text: String!
   user: User
   post: Post
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 type CommentConnection {
@@ -87,11 +89,17 @@ enum CommentOrderByInput {
   id_DESC
   text_ASC
   text_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type CommentPreviousValues {
   id: ID!
   text: String!
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 input CommentScalarWhereInput {
@@ -123,6 +131,22 @@ input CommentScalarWhereInput {
   text_not_starts_with: String
   text_ends_with: String
   text_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [CommentScalarWhereInput!]
   OR: [CommentScalarWhereInput!]
   NOT: [CommentScalarWhereInput!]
@@ -252,6 +276,22 @@ input CommentWhereInput {
   text_not_ends_with: String
   user: UserWhereInput
   post: PostWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [CommentWhereInput!]
   OR: [CommentWhereInput!]
   NOT: [CommentWhereInput!]
@@ -260,6 +300,8 @@ input CommentWhereInput {
 input CommentWhereUniqueInput {
   id: ID
 }
+
+scalar DateTime
 
 type File {
   id: ID!
@@ -623,6 +665,8 @@ type Message {
   from: User!
   to: User!
   room: Room!
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 type MessageConnection {
@@ -661,11 +705,17 @@ enum MessageOrderByInput {
   id_DESC
   test_ASC
   test_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type MessagePreviousValues {
   id: ID!
   test: String!
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 input MessageScalarWhereInput {
@@ -697,6 +747,22 @@ input MessageScalarWhereInput {
   test_not_starts_with: String
   test_ends_with: String
   test_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [MessageScalarWhereInput!]
   OR: [MessageScalarWhereInput!]
   NOT: [MessageScalarWhereInput!]
@@ -801,6 +867,22 @@ input MessageWhereInput {
   from: UserWhereInput
   to: UserWhereInput
   room: RoomWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [MessageWhereInput!]
   OR: [MessageWhereInput!]
   NOT: [MessageWhereInput!]
@@ -878,6 +960,9 @@ type Post {
   likes(where: LikeWhereInput, orderBy: LikeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Like!]
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
   user: User
+  createdAt: DateTime
+  updatedAt: DateTime
+  createdTime: String
 }
 
 type PostConnection {
@@ -894,6 +979,7 @@ input PostCreateInput {
   likes: LikeCreateManyWithoutPostInput
   comments: CommentCreateManyWithoutPostInput
   user: UserCreateOneWithoutPostsInput
+  createdTime: String
 }
 
 input PostCreateManyWithoutUserInput {
@@ -923,6 +1009,7 @@ input PostCreateWithoutCommentsInput {
   caption: String!
   likes: LikeCreateManyWithoutPostInput
   user: UserCreateOneWithoutPostsInput
+  createdTime: String
 }
 
 input PostCreateWithoutFilesInput {
@@ -932,6 +1019,7 @@ input PostCreateWithoutFilesInput {
   likes: LikeCreateManyWithoutPostInput
   comments: CommentCreateManyWithoutPostInput
   user: UserCreateOneWithoutPostsInput
+  createdTime: String
 }
 
 input PostCreateWithoutLikesInput {
@@ -941,6 +1029,7 @@ input PostCreateWithoutLikesInput {
   caption: String!
   comments: CommentCreateManyWithoutPostInput
   user: UserCreateOneWithoutPostsInput
+  createdTime: String
 }
 
 input PostCreateWithoutUserInput {
@@ -950,6 +1039,7 @@ input PostCreateWithoutUserInput {
   caption: String!
   likes: LikeCreateManyWithoutPostInput
   comments: CommentCreateManyWithoutPostInput
+  createdTime: String
 }
 
 type PostEdge {
@@ -964,12 +1054,21 @@ enum PostOrderByInput {
   location_DESC
   caption_ASC
   caption_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdTime_ASC
+  createdTime_DESC
 }
 
 type PostPreviousValues {
   id: ID!
   location: String
   caption: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+  createdTime: String
 }
 
 input PostScalarWhereInput {
@@ -1015,6 +1114,36 @@ input PostScalarWhereInput {
   caption_not_starts_with: String
   caption_ends_with: String
   caption_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdTime: String
+  createdTime_not: String
+  createdTime_in: [String!]
+  createdTime_not_in: [String!]
+  createdTime_lt: String
+  createdTime_lte: String
+  createdTime_gt: String
+  createdTime_gte: String
+  createdTime_contains: String
+  createdTime_not_contains: String
+  createdTime_starts_with: String
+  createdTime_not_starts_with: String
+  createdTime_ends_with: String
+  createdTime_not_ends_with: String
   AND: [PostScalarWhereInput!]
   OR: [PostScalarWhereInput!]
   NOT: [PostScalarWhereInput!]
@@ -1045,16 +1174,19 @@ input PostUpdateInput {
   likes: LikeUpdateManyWithoutPostInput
   comments: CommentUpdateManyWithoutPostInput
   user: UserUpdateOneWithoutPostsInput
+  createdTime: String
 }
 
 input PostUpdateManyDataInput {
   location: String
   caption: String
+  createdTime: String
 }
 
 input PostUpdateManyMutationInput {
   location: String
   caption: String
+  createdTime: String
 }
 
 input PostUpdateManyWithoutUserInput {
@@ -1107,6 +1239,7 @@ input PostUpdateWithoutCommentsDataInput {
   caption: String
   likes: LikeUpdateManyWithoutPostInput
   user: UserUpdateOneWithoutPostsInput
+  createdTime: String
 }
 
 input PostUpdateWithoutFilesDataInput {
@@ -1115,6 +1248,7 @@ input PostUpdateWithoutFilesDataInput {
   likes: LikeUpdateManyWithoutPostInput
   comments: CommentUpdateManyWithoutPostInput
   user: UserUpdateOneWithoutPostsInput
+  createdTime: String
 }
 
 input PostUpdateWithoutLikesDataInput {
@@ -1123,6 +1257,7 @@ input PostUpdateWithoutLikesDataInput {
   caption: String
   comments: CommentUpdateManyWithoutPostInput
   user: UserUpdateOneWithoutPostsInput
+  createdTime: String
 }
 
 input PostUpdateWithoutUserDataInput {
@@ -1131,6 +1266,7 @@ input PostUpdateWithoutUserDataInput {
   caption: String
   likes: LikeUpdateManyWithoutPostInput
   comments: CommentUpdateManyWithoutPostInput
+  createdTime: String
 }
 
 input PostUpdateWithWhereUniqueWithoutUserInput {
@@ -1212,6 +1348,36 @@ input PostWhereInput {
   comments_some: CommentWhereInput
   comments_none: CommentWhereInput
   user: UserWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdTime: String
+  createdTime_not: String
+  createdTime_in: [String!]
+  createdTime_not_in: [String!]
+  createdTime_lt: String
+  createdTime_lte: String
+  createdTime_gt: String
+  createdTime_gte: String
+  createdTime_contains: String
+  createdTime_not_contains: String
+  createdTime_starts_with: String
+  createdTime_not_starts_with: String
+  createdTime_ends_with: String
+  createdTime_not_ends_with: String
   AND: [PostWhereInput!]
   OR: [PostWhereInput!]
   NOT: [PostWhereInput!]

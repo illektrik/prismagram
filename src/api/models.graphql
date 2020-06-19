@@ -32,6 +32,7 @@ type Post {
   createdAt: String
   updatedAt: String
   user: User!
+  createdTime: String
 }
 
 type Like {

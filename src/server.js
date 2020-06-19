@@ -22,10 +22,10 @@ server.express.use(authenticateJwt);
 server.start(
   {
     port: PORT,
-    cors: {
-      credentials: true,
-      origin: process.env.FRONTEND_URL
-    }
+    // cors: {
+    //   credentials: true,
+    //   origin: process.env.FRONTEND_URL
+    // }
   },
   () => console.log(`Server running on port http://localhost:${PORT}`)
 );
