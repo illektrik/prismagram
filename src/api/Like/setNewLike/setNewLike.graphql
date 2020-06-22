@@ -1,0 +1,3 @@
+type Mutation {
+  setNewLike(userId: String, postId: String, from: String): NewLike
+}

@@ -35,6 +35,18 @@ export default {
                 id: postId
               }
             }
+          });
+          await prisma.createNewLike({
+            user: {
+              connect: {
+                id: user.id
+              }
+            },
+            post: {
+              connect: {
+                id: postId
+              }
+            }
           })
         }
       } catch (e) {

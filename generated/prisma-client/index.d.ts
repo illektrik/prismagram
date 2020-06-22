@@ -20,6 +20,7 @@ export interface Exists {
   file: (where?: FileWhereInput) => Promise<boolean>;
   like: (where?: LikeWhereInput) => Promise<boolean>;
   message: (where?: MessageWhereInput) => Promise<boolean>;
+  newLike: (where?: NewLikeWhereInput) => Promise<boolean>;
   post: (where?: PostWhereInput) => Promise<boolean>;
   room: (where?: RoomWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
@@ -120,6 +121,25 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => MessageConnectionPromise;
+  newLike: (where: NewLikeWhereUniqueInput) => NewLikeNullablePromise;
+  newLikes: (args?: {
+    where?: NewLikeWhereInput;
+    orderBy?: NewLikeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<NewLike>;
+  newLikesConnection: (args?: {
+    where?: NewLikeWhereInput;
+    orderBy?: NewLikeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => NewLikeConnectionPromise;
   post: (where: PostWhereUniqueInput) => PostNullablePromise;
   posts: (args?: {
     where?: PostWhereInput;
@@ -243,6 +263,18 @@ export interface Prisma {
   }) => MessagePromise;
   deleteMessage: (where: MessageWhereUniqueInput) => MessagePromise;
   deleteManyMessages: (where?: MessageWhereInput) => BatchPayloadPromise;
+  createNewLike: (data: NewLikeCreateInput) => NewLikePromise;
+  updateNewLike: (args: {
+    data: NewLikeUpdateInput;
+    where: NewLikeWhereUniqueInput;
+  }) => NewLikePromise;
+  upsertNewLike: (args: {
+    where: NewLikeWhereUniqueInput;
+    create: NewLikeCreateInput;
+    update: NewLikeUpdateInput;
+  }) => NewLikePromise;
+  deleteNewLike: (where: NewLikeWhereUniqueInput) => NewLikePromise;
+  deleteManyNewLikes: (where?: NewLikeWhereInput) => BatchPayloadPromise;
   createPost: (data: PostCreateInput) => PostPromise;
   updatePost: (args: {
     data: PostUpdateInput;
@@ -308,6 +340,9 @@ export interface Subscription {
   message: (
     where?: MessageSubscriptionWhereInput
   ) => MessageSubscriptionPayloadSubscription;
+  newLike: (
+    where?: NewLikeSubscriptionWhereInput
+  ) => NewLikeSubscriptionPayloadSubscription;
   post: (
     where?: PostSubscriptionWhereInput
   ) => PostSubscriptionPayloadSubscription;
@@ -362,6 +397,14 @@ export type PostOrderByInput =
 export type FileOrderByInput = "id_ASC" | "id_DESC" | "url_ASC" | "url_DESC";
 
 export type LikeOrderByInput = "id_ASC" | "id_DESC";
+
+export type NewLikeOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type CommentOrderByInput =
   | "id_ASC"
@@ -502,6 +545,9 @@ export interface UserWhereInput {
   likes_every?: Maybe<LikeWhereInput>;
   likes_some?: Maybe<LikeWhereInput>;
   likes_none?: Maybe<LikeWhereInput>;
+  newLikes_every?: Maybe<NewLikeWhereInput>;
+  newLikes_some?: Maybe<NewLikeWhereInput>;
+  newLikes_none?: Maybe<NewLikeWhereInput>;
   comments_every?: Maybe<CommentWhereInput>;
   comments_some?: Maybe<CommentWhereInput>;
   comments_none?: Maybe<CommentWhereInput>;
@@ -576,6 +622,9 @@ export interface PostWhereInput {
   likes_every?: Maybe<LikeWhereInput>;
   likes_some?: Maybe<LikeWhereInput>;
   likes_none?: Maybe<LikeWhereInput>;
+  newLikes_every?: Maybe<NewLikeWhereInput>;
+  newLikes_some?: Maybe<NewLikeWhereInput>;
+  newLikes_none?: Maybe<NewLikeWhereInput>;
   comments_every?: Maybe<CommentWhereInput>;
   comments_some?: Maybe<CommentWhereInput>;
   comments_none?: Maybe<CommentWhereInput>;
@@ -670,6 +719,44 @@ export interface LikeWhereInput {
   AND?: Maybe<LikeWhereInput[] | LikeWhereInput>;
   OR?: Maybe<LikeWhereInput[] | LikeWhereInput>;
   NOT?: Maybe<LikeWhereInput[] | LikeWhereInput>;
+}
+
+export interface NewLikeWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  user?: Maybe<UserWhereInput>;
+  post?: Maybe<PostWhereInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<NewLikeWhereInput[] | NewLikeWhereInput>;
+  OR?: Maybe<NewLikeWhereInput[] | NewLikeWhereInput>;
+  NOT?: Maybe<NewLikeWhereInput[] | NewLikeWhereInput>;
 }
 
 export interface CommentWhereInput {
@@ -815,6 +902,10 @@ export type MessageWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
+export type NewLikeWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
 export type PostWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
@@ -853,6 +944,7 @@ export interface UserCreateWithoutCommentsInput {
   following?: Maybe<UserCreateManyWithoutFollowersInput>;
   posts?: Maybe<PostCreateManyWithoutUserInput>;
   likes?: Maybe<LikeCreateManyWithoutUserInput>;
+  newLikes?: Maybe<NewLikeCreateManyWithoutUserInput>;
   rooms?: Maybe<RoomCreateManyWithoutParticipantsInput>;
   loginSecret?: Maybe<String>;
 }
@@ -875,6 +967,7 @@ export interface UserCreateWithoutFollowingInput {
   followers?: Maybe<UserCreateManyWithoutFollowingInput>;
   posts?: Maybe<PostCreateManyWithoutUserInput>;
   likes?: Maybe<LikeCreateManyWithoutUserInput>;
+  newLikes?: Maybe<NewLikeCreateManyWithoutUserInput>;
   comments?: Maybe<CommentCreateManyWithoutUserInput>;
   rooms?: Maybe<RoomCreateManyWithoutParticipantsInput>;
   loginSecret?: Maybe<String>;
@@ -891,6 +984,7 @@ export interface PostCreateWithoutUserInput {
   location?: Maybe<String>;
   caption: String;
   likes?: Maybe<LikeCreateManyWithoutPostInput>;
+  newLikes?: Maybe<NewLikeCreateManyWithoutPostInput>;
   comments?: Maybe<CommentCreateManyWithoutPostInput>;
   createdTime?: Maybe<String>;
 }
@@ -931,6 +1025,7 @@ export interface UserCreateWithoutLikesInput {
   followers?: Maybe<UserCreateManyWithoutFollowingInput>;
   following?: Maybe<UserCreateManyWithoutFollowersInput>;
   posts?: Maybe<PostCreateManyWithoutUserInput>;
+  newLikes?: Maybe<NewLikeCreateManyWithoutUserInput>;
   comments?: Maybe<CommentCreateManyWithoutUserInput>;
   rooms?: Maybe<RoomCreateManyWithoutParticipantsInput>;
   loginSecret?: Maybe<String>;
@@ -954,6 +1049,7 @@ export interface UserCreateWithoutFollowersInput {
   following?: Maybe<UserCreateManyWithoutFollowersInput>;
   posts?: Maybe<PostCreateManyWithoutUserInput>;
   likes?: Maybe<LikeCreateManyWithoutUserInput>;
+  newLikes?: Maybe<NewLikeCreateManyWithoutUserInput>;
   comments?: Maybe<CommentCreateManyWithoutUserInput>;
   rooms?: Maybe<RoomCreateManyWithoutParticipantsInput>;
   loginSecret?: Maybe<String>;
@@ -979,30 +1075,30 @@ export interface PostCreateWithoutLikesInput {
   files?: Maybe<FileCreateManyWithoutPostInput>;
   location?: Maybe<String>;
   caption: String;
+  newLikes?: Maybe<NewLikeCreateManyWithoutPostInput>;
   comments?: Maybe<CommentCreateManyWithoutPostInput>;
   user?: Maybe<UserCreateOneWithoutPostsInput>;
   createdTime?: Maybe<String>;
 }
 
-export interface CommentCreateManyWithoutPostInput {
+export interface NewLikeCreateManyWithoutPostInput {
   create?: Maybe<
-    CommentCreateWithoutPostInput[] | CommentCreateWithoutPostInput
+    NewLikeCreateWithoutPostInput[] | NewLikeCreateWithoutPostInput
   >;
-  connect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
+  connect?: Maybe<NewLikeWhereUniqueInput[] | NewLikeWhereUniqueInput>;
 }
 
-export interface CommentCreateWithoutPostInput {
+export interface NewLikeCreateWithoutPostInput {
   id?: Maybe<ID_Input>;
-  text: String;
-  user?: Maybe<UserCreateOneWithoutCommentsInput>;
+  user?: Maybe<UserCreateOneWithoutNewLikesInput>;
 }
 
-export interface UserCreateOneWithoutPostsInput {
-  create?: Maybe<UserCreateWithoutPostsInput>;
+export interface UserCreateOneWithoutNewLikesInput {
+  create?: Maybe<UserCreateWithoutNewLikesInput>;
   connect?: Maybe<UserWhereUniqueInput>;
 }
 
-export interface UserCreateWithoutPostsInput {
+export interface UserCreateWithoutNewLikesInput {
   id?: Maybe<ID_Input>;
   avatar?: Maybe<String>;
   firstName?: Maybe<String>;
@@ -1012,6 +1108,7 @@ export interface UserCreateWithoutPostsInput {
   bio?: Maybe<String>;
   followers?: Maybe<UserCreateManyWithoutFollowingInput>;
   following?: Maybe<UserCreateManyWithoutFollowersInput>;
+  posts?: Maybe<PostCreateManyWithoutUserInput>;
   likes?: Maybe<LikeCreateManyWithoutUserInput>;
   comments?: Maybe<CommentCreateManyWithoutUserInput>;
   rooms?: Maybe<RoomCreateManyWithoutParticipantsInput>;
@@ -1042,8 +1139,72 @@ export interface PostCreateWithoutCommentsInput {
   location?: Maybe<String>;
   caption: String;
   likes?: Maybe<LikeCreateManyWithoutPostInput>;
+  newLikes?: Maybe<NewLikeCreateManyWithoutPostInput>;
   user?: Maybe<UserCreateOneWithoutPostsInput>;
   createdTime?: Maybe<String>;
+}
+
+export interface UserCreateOneWithoutPostsInput {
+  create?: Maybe<UserCreateWithoutPostsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserCreateWithoutPostsInput {
+  id?: Maybe<ID_Input>;
+  avatar?: Maybe<String>;
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  userName: String;
+  email: String;
+  bio?: Maybe<String>;
+  followers?: Maybe<UserCreateManyWithoutFollowingInput>;
+  following?: Maybe<UserCreateManyWithoutFollowersInput>;
+  likes?: Maybe<LikeCreateManyWithoutUserInput>;
+  newLikes?: Maybe<NewLikeCreateManyWithoutUserInput>;
+  comments?: Maybe<CommentCreateManyWithoutUserInput>;
+  rooms?: Maybe<RoomCreateManyWithoutParticipantsInput>;
+  loginSecret?: Maybe<String>;
+}
+
+export interface NewLikeCreateManyWithoutUserInput {
+  create?: Maybe<
+    NewLikeCreateWithoutUserInput[] | NewLikeCreateWithoutUserInput
+  >;
+  connect?: Maybe<NewLikeWhereUniqueInput[] | NewLikeWhereUniqueInput>;
+}
+
+export interface NewLikeCreateWithoutUserInput {
+  id?: Maybe<ID_Input>;
+  post?: Maybe<PostCreateOneWithoutNewLikesInput>;
+}
+
+export interface PostCreateOneWithoutNewLikesInput {
+  create?: Maybe<PostCreateWithoutNewLikesInput>;
+  connect?: Maybe<PostWhereUniqueInput>;
+}
+
+export interface PostCreateWithoutNewLikesInput {
+  id?: Maybe<ID_Input>;
+  files?: Maybe<FileCreateManyWithoutPostInput>;
+  location?: Maybe<String>;
+  caption: String;
+  likes?: Maybe<LikeCreateManyWithoutPostInput>;
+  comments?: Maybe<CommentCreateManyWithoutPostInput>;
+  user?: Maybe<UserCreateOneWithoutPostsInput>;
+  createdTime?: Maybe<String>;
+}
+
+export interface CommentCreateManyWithoutPostInput {
+  create?: Maybe<
+    CommentCreateWithoutPostInput[] | CommentCreateWithoutPostInput
+  >;
+  connect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
+}
+
+export interface CommentCreateWithoutPostInput {
+  id?: Maybe<ID_Input>;
+  text: String;
+  user?: Maybe<UserCreateOneWithoutCommentsInput>;
 }
 
 export interface RoomCreateManyWithoutParticipantsInput {
@@ -1089,6 +1250,7 @@ export interface UserCreateInput {
   following?: Maybe<UserCreateManyWithoutFollowersInput>;
   posts?: Maybe<PostCreateManyWithoutUserInput>;
   likes?: Maybe<LikeCreateManyWithoutUserInput>;
+  newLikes?: Maybe<NewLikeCreateManyWithoutUserInput>;
   comments?: Maybe<CommentCreateManyWithoutUserInput>;
   rooms?: Maybe<RoomCreateManyWithoutParticipantsInput>;
   loginSecret?: Maybe<String>;
@@ -1120,6 +1282,7 @@ export interface UserUpdateWithoutCommentsDataInput {
   following?: Maybe<UserUpdateManyWithoutFollowersInput>;
   posts?: Maybe<PostUpdateManyWithoutUserInput>;
   likes?: Maybe<LikeUpdateManyWithoutUserInput>;
+  newLikes?: Maybe<NewLikeUpdateManyWithoutUserInput>;
   rooms?: Maybe<RoomUpdateManyWithoutParticipantsInput>;
   loginSecret?: Maybe<String>;
 }
@@ -1161,6 +1324,7 @@ export interface UserUpdateWithoutFollowingDataInput {
   followers?: Maybe<UserUpdateManyWithoutFollowingInput>;
   posts?: Maybe<PostUpdateManyWithoutUserInput>;
   likes?: Maybe<LikeUpdateManyWithoutUserInput>;
+  newLikes?: Maybe<NewLikeUpdateManyWithoutUserInput>;
   comments?: Maybe<CommentUpdateManyWithoutUserInput>;
   rooms?: Maybe<RoomUpdateManyWithoutParticipantsInput>;
   loginSecret?: Maybe<String>;
@@ -1196,6 +1360,7 @@ export interface PostUpdateWithoutUserDataInput {
   location?: Maybe<String>;
   caption?: Maybe<String>;
   likes?: Maybe<LikeUpdateManyWithoutPostInput>;
+  newLikes?: Maybe<NewLikeUpdateManyWithoutPostInput>;
   comments?: Maybe<CommentUpdateManyWithoutPostInput>;
   createdTime?: Maybe<String>;
 }
@@ -1323,6 +1488,7 @@ export interface UserUpdateWithoutLikesDataInput {
   followers?: Maybe<UserUpdateManyWithoutFollowingInput>;
   following?: Maybe<UserUpdateManyWithoutFollowersInput>;
   posts?: Maybe<PostUpdateManyWithoutUserInput>;
+  newLikes?: Maybe<NewLikeUpdateManyWithoutUserInput>;
   comments?: Maybe<CommentUpdateManyWithoutUserInput>;
   rooms?: Maybe<RoomUpdateManyWithoutParticipantsInput>;
   loginSecret?: Maybe<String>;
@@ -1365,6 +1531,7 @@ export interface UserUpdateWithoutFollowersDataInput {
   following?: Maybe<UserUpdateManyWithoutFollowersInput>;
   posts?: Maybe<PostUpdateManyWithoutUserInput>;
   likes?: Maybe<LikeUpdateManyWithoutUserInput>;
+  newLikes?: Maybe<NewLikeUpdateManyWithoutUserInput>;
   comments?: Maybe<CommentUpdateManyWithoutUserInput>;
   rooms?: Maybe<RoomUpdateManyWithoutParticipantsInput>;
   loginSecret?: Maybe<String>;
@@ -1409,6 +1576,184 @@ export interface PostUpdateWithoutLikesDataInput {
   files?: Maybe<FileUpdateManyWithoutPostInput>;
   location?: Maybe<String>;
   caption?: Maybe<String>;
+  newLikes?: Maybe<NewLikeUpdateManyWithoutPostInput>;
+  comments?: Maybe<CommentUpdateManyWithoutPostInput>;
+  user?: Maybe<UserUpdateOneWithoutPostsInput>;
+  createdTime?: Maybe<String>;
+}
+
+export interface NewLikeUpdateManyWithoutPostInput {
+  create?: Maybe<
+    NewLikeCreateWithoutPostInput[] | NewLikeCreateWithoutPostInput
+  >;
+  delete?: Maybe<NewLikeWhereUniqueInput[] | NewLikeWhereUniqueInput>;
+  connect?: Maybe<NewLikeWhereUniqueInput[] | NewLikeWhereUniqueInput>;
+  set?: Maybe<NewLikeWhereUniqueInput[] | NewLikeWhereUniqueInput>;
+  disconnect?: Maybe<NewLikeWhereUniqueInput[] | NewLikeWhereUniqueInput>;
+  update?: Maybe<
+    | NewLikeUpdateWithWhereUniqueWithoutPostInput[]
+    | NewLikeUpdateWithWhereUniqueWithoutPostInput
+  >;
+  upsert?: Maybe<
+    | NewLikeUpsertWithWhereUniqueWithoutPostInput[]
+    | NewLikeUpsertWithWhereUniqueWithoutPostInput
+  >;
+  deleteMany?: Maybe<NewLikeScalarWhereInput[] | NewLikeScalarWhereInput>;
+}
+
+export interface NewLikeUpdateWithWhereUniqueWithoutPostInput {
+  where: NewLikeWhereUniqueInput;
+  data: NewLikeUpdateWithoutPostDataInput;
+}
+
+export interface NewLikeUpdateWithoutPostDataInput {
+  user?: Maybe<UserUpdateOneWithoutNewLikesInput>;
+}
+
+export interface UserUpdateOneWithoutNewLikesInput {
+  create?: Maybe<UserCreateWithoutNewLikesInput>;
+  update?: Maybe<UserUpdateWithoutNewLikesDataInput>;
+  upsert?: Maybe<UserUpsertWithoutNewLikesInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateWithoutNewLikesDataInput {
+  avatar?: Maybe<String>;
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  userName?: Maybe<String>;
+  email?: Maybe<String>;
+  bio?: Maybe<String>;
+  followers?: Maybe<UserUpdateManyWithoutFollowingInput>;
+  following?: Maybe<UserUpdateManyWithoutFollowersInput>;
+  posts?: Maybe<PostUpdateManyWithoutUserInput>;
+  likes?: Maybe<LikeUpdateManyWithoutUserInput>;
+  comments?: Maybe<CommentUpdateManyWithoutUserInput>;
+  rooms?: Maybe<RoomUpdateManyWithoutParticipantsInput>;
+  loginSecret?: Maybe<String>;
+}
+
+export interface CommentUpdateManyWithoutUserInput {
+  create?: Maybe<
+    CommentCreateWithoutUserInput[] | CommentCreateWithoutUserInput
+  >;
+  delete?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
+  connect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
+  set?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
+  disconnect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
+  update?: Maybe<
+    | CommentUpdateWithWhereUniqueWithoutUserInput[]
+    | CommentUpdateWithWhereUniqueWithoutUserInput
+  >;
+  upsert?: Maybe<
+    | CommentUpsertWithWhereUniqueWithoutUserInput[]
+    | CommentUpsertWithWhereUniqueWithoutUserInput
+  >;
+  deleteMany?: Maybe<CommentScalarWhereInput[] | CommentScalarWhereInput>;
+  updateMany?: Maybe<
+    | CommentUpdateManyWithWhereNestedInput[]
+    | CommentUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface CommentUpdateWithWhereUniqueWithoutUserInput {
+  where: CommentWhereUniqueInput;
+  data: CommentUpdateWithoutUserDataInput;
+}
+
+export interface CommentUpdateWithoutUserDataInput {
+  text?: Maybe<String>;
+  post?: Maybe<PostUpdateOneWithoutCommentsInput>;
+}
+
+export interface PostUpdateOneWithoutCommentsInput {
+  create?: Maybe<PostCreateWithoutCommentsInput>;
+  update?: Maybe<PostUpdateWithoutCommentsDataInput>;
+  upsert?: Maybe<PostUpsertWithoutCommentsInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<PostWhereUniqueInput>;
+}
+
+export interface PostUpdateWithoutCommentsDataInput {
+  files?: Maybe<FileUpdateManyWithoutPostInput>;
+  location?: Maybe<String>;
+  caption?: Maybe<String>;
+  likes?: Maybe<LikeUpdateManyWithoutPostInput>;
+  newLikes?: Maybe<NewLikeUpdateManyWithoutPostInput>;
+  user?: Maybe<UserUpdateOneWithoutPostsInput>;
+  createdTime?: Maybe<String>;
+}
+
+export interface UserUpdateOneWithoutPostsInput {
+  create?: Maybe<UserCreateWithoutPostsInput>;
+  update?: Maybe<UserUpdateWithoutPostsDataInput>;
+  upsert?: Maybe<UserUpsertWithoutPostsInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateWithoutPostsDataInput {
+  avatar?: Maybe<String>;
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  userName?: Maybe<String>;
+  email?: Maybe<String>;
+  bio?: Maybe<String>;
+  followers?: Maybe<UserUpdateManyWithoutFollowingInput>;
+  following?: Maybe<UserUpdateManyWithoutFollowersInput>;
+  likes?: Maybe<LikeUpdateManyWithoutUserInput>;
+  newLikes?: Maybe<NewLikeUpdateManyWithoutUserInput>;
+  comments?: Maybe<CommentUpdateManyWithoutUserInput>;
+  rooms?: Maybe<RoomUpdateManyWithoutParticipantsInput>;
+  loginSecret?: Maybe<String>;
+}
+
+export interface NewLikeUpdateManyWithoutUserInput {
+  create?: Maybe<
+    NewLikeCreateWithoutUserInput[] | NewLikeCreateWithoutUserInput
+  >;
+  delete?: Maybe<NewLikeWhereUniqueInput[] | NewLikeWhereUniqueInput>;
+  connect?: Maybe<NewLikeWhereUniqueInput[] | NewLikeWhereUniqueInput>;
+  set?: Maybe<NewLikeWhereUniqueInput[] | NewLikeWhereUniqueInput>;
+  disconnect?: Maybe<NewLikeWhereUniqueInput[] | NewLikeWhereUniqueInput>;
+  update?: Maybe<
+    | NewLikeUpdateWithWhereUniqueWithoutUserInput[]
+    | NewLikeUpdateWithWhereUniqueWithoutUserInput
+  >;
+  upsert?: Maybe<
+    | NewLikeUpsertWithWhereUniqueWithoutUserInput[]
+    | NewLikeUpsertWithWhereUniqueWithoutUserInput
+  >;
+  deleteMany?: Maybe<NewLikeScalarWhereInput[] | NewLikeScalarWhereInput>;
+}
+
+export interface NewLikeUpdateWithWhereUniqueWithoutUserInput {
+  where: NewLikeWhereUniqueInput;
+  data: NewLikeUpdateWithoutUserDataInput;
+}
+
+export interface NewLikeUpdateWithoutUserDataInput {
+  post?: Maybe<PostUpdateOneWithoutNewLikesInput>;
+}
+
+export interface PostUpdateOneWithoutNewLikesInput {
+  create?: Maybe<PostCreateWithoutNewLikesInput>;
+  update?: Maybe<PostUpdateWithoutNewLikesDataInput>;
+  upsert?: Maybe<PostUpsertWithoutNewLikesInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<PostWhereUniqueInput>;
+}
+
+export interface PostUpdateWithoutNewLikesDataInput {
+  files?: Maybe<FileUpdateManyWithoutPostInput>;
+  location?: Maybe<String>;
+  caption?: Maybe<String>;
+  likes?: Maybe<LikeUpdateManyWithoutPostInput>;
   comments?: Maybe<CommentUpdateManyWithoutPostInput>;
   user?: Maybe<UserUpdateOneWithoutPostsInput>;
   createdTime?: Maybe<String>;
@@ -1512,90 +1857,51 @@ export interface CommentUpdateManyDataInput {
   text?: Maybe<String>;
 }
 
-export interface UserUpdateOneWithoutPostsInput {
-  create?: Maybe<UserCreateWithoutPostsInput>;
-  update?: Maybe<UserUpdateWithoutPostsDataInput>;
-  upsert?: Maybe<UserUpsertWithoutPostsInput>;
-  delete?: Maybe<Boolean>;
-  disconnect?: Maybe<Boolean>;
-  connect?: Maybe<UserWhereUniqueInput>;
+export interface PostUpsertWithoutNewLikesInput {
+  update: PostUpdateWithoutNewLikesDataInput;
+  create: PostCreateWithoutNewLikesInput;
 }
 
-export interface UserUpdateWithoutPostsDataInput {
-  avatar?: Maybe<String>;
-  firstName?: Maybe<String>;
-  lastName?: Maybe<String>;
-  userName?: Maybe<String>;
-  email?: Maybe<String>;
-  bio?: Maybe<String>;
-  followers?: Maybe<UserUpdateManyWithoutFollowingInput>;
-  following?: Maybe<UserUpdateManyWithoutFollowersInput>;
-  likes?: Maybe<LikeUpdateManyWithoutUserInput>;
-  comments?: Maybe<CommentUpdateManyWithoutUserInput>;
-  rooms?: Maybe<RoomUpdateManyWithoutParticipantsInput>;
-  loginSecret?: Maybe<String>;
+export interface NewLikeUpsertWithWhereUniqueWithoutUserInput {
+  where: NewLikeWhereUniqueInput;
+  update: NewLikeUpdateWithoutUserDataInput;
+  create: NewLikeCreateWithoutUserInput;
 }
 
-export interface CommentUpdateManyWithoutUserInput {
-  create?: Maybe<
-    CommentCreateWithoutUserInput[] | CommentCreateWithoutUserInput
-  >;
-  delete?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
-  connect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
-  set?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
-  disconnect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
-  update?: Maybe<
-    | CommentUpdateWithWhereUniqueWithoutUserInput[]
-    | CommentUpdateWithWhereUniqueWithoutUserInput
-  >;
-  upsert?: Maybe<
-    | CommentUpsertWithWhereUniqueWithoutUserInput[]
-    | CommentUpsertWithWhereUniqueWithoutUserInput
-  >;
-  deleteMany?: Maybe<CommentScalarWhereInput[] | CommentScalarWhereInput>;
-  updateMany?: Maybe<
-    | CommentUpdateManyWithWhereNestedInput[]
-    | CommentUpdateManyWithWhereNestedInput
-  >;
-}
-
-export interface CommentUpdateWithWhereUniqueWithoutUserInput {
-  where: CommentWhereUniqueInput;
-  data: CommentUpdateWithoutUserDataInput;
-}
-
-export interface CommentUpdateWithoutUserDataInput {
-  text?: Maybe<String>;
-  post?: Maybe<PostUpdateOneWithoutCommentsInput>;
-}
-
-export interface PostUpdateOneWithoutCommentsInput {
-  create?: Maybe<PostCreateWithoutCommentsInput>;
-  update?: Maybe<PostUpdateWithoutCommentsDataInput>;
-  upsert?: Maybe<PostUpsertWithoutCommentsInput>;
-  delete?: Maybe<Boolean>;
-  disconnect?: Maybe<Boolean>;
-  connect?: Maybe<PostWhereUniqueInput>;
-}
-
-export interface PostUpdateWithoutCommentsDataInput {
-  files?: Maybe<FileUpdateManyWithoutPostInput>;
-  location?: Maybe<String>;
-  caption?: Maybe<String>;
-  likes?: Maybe<LikeUpdateManyWithoutPostInput>;
-  user?: Maybe<UserUpdateOneWithoutPostsInput>;
-  createdTime?: Maybe<String>;
-}
-
-export interface PostUpsertWithoutCommentsInput {
-  update: PostUpdateWithoutCommentsDataInput;
-  create: PostCreateWithoutCommentsInput;
-}
-
-export interface CommentUpsertWithWhereUniqueWithoutUserInput {
-  where: CommentWhereUniqueInput;
-  update: CommentUpdateWithoutUserDataInput;
-  create: CommentCreateWithoutUserInput;
+export interface NewLikeScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<NewLikeScalarWhereInput[] | NewLikeScalarWhereInput>;
+  OR?: Maybe<NewLikeScalarWhereInput[] | NewLikeScalarWhereInput>;
+  NOT?: Maybe<NewLikeScalarWhereInput[] | NewLikeScalarWhereInput>;
 }
 
 export interface RoomUpdateManyWithoutParticipantsInput {
@@ -1678,6 +1984,7 @@ export interface UserUpdateDataInput {
   following?: Maybe<UserUpdateManyWithoutFollowersInput>;
   posts?: Maybe<PostUpdateManyWithoutUserInput>;
   likes?: Maybe<LikeUpdateManyWithoutUserInput>;
+  newLikes?: Maybe<NewLikeUpdateManyWithoutUserInput>;
   comments?: Maybe<CommentUpdateManyWithoutUserInput>;
   rooms?: Maybe<RoomUpdateManyWithoutParticipantsInput>;
   loginSecret?: Maybe<String>;
@@ -1782,6 +2089,28 @@ export interface RoomScalarWhereInput {
 export interface UserUpsertWithoutPostsInput {
   update: UserUpdateWithoutPostsDataInput;
   create: UserCreateWithoutPostsInput;
+}
+
+export interface PostUpsertWithoutCommentsInput {
+  update: PostUpdateWithoutCommentsDataInput;
+  create: PostCreateWithoutCommentsInput;
+}
+
+export interface CommentUpsertWithWhereUniqueWithoutUserInput {
+  where: CommentWhereUniqueInput;
+  update: CommentUpdateWithoutUserDataInput;
+  create: CommentCreateWithoutUserInput;
+}
+
+export interface UserUpsertWithoutNewLikesInput {
+  update: UserUpdateWithoutNewLikesDataInput;
+  create: UserCreateWithoutNewLikesInput;
+}
+
+export interface NewLikeUpsertWithWhereUniqueWithoutPostInput {
+  where: NewLikeWhereUniqueInput;
+  update: NewLikeUpdateWithoutPostDataInput;
+  create: NewLikeCreateWithoutPostInput;
 }
 
 export interface PostUpsertWithoutLikesInput {
@@ -2091,6 +2420,7 @@ export interface PostCreateWithoutFilesInput {
   location?: Maybe<String>;
   caption: String;
   likes?: Maybe<LikeCreateManyWithoutPostInput>;
+  newLikes?: Maybe<NewLikeCreateManyWithoutPostInput>;
   comments?: Maybe<CommentCreateManyWithoutPostInput>;
   user?: Maybe<UserCreateOneWithoutPostsInput>;
   createdTime?: Maybe<String>;
@@ -2114,6 +2444,7 @@ export interface PostUpdateWithoutFilesDataInput {
   location?: Maybe<String>;
   caption?: Maybe<String>;
   likes?: Maybe<LikeUpdateManyWithoutPostInput>;
+  newLikes?: Maybe<NewLikeUpdateManyWithoutPostInput>;
   comments?: Maybe<CommentUpdateManyWithoutPostInput>;
   user?: Maybe<UserUpdateOneWithoutPostsInput>;
   createdTime?: Maybe<String>;
@@ -2174,6 +2505,7 @@ export interface UserCreateWithoutRoomsInput {
   following?: Maybe<UserCreateManyWithoutFollowersInput>;
   posts?: Maybe<PostCreateManyWithoutUserInput>;
   likes?: Maybe<LikeCreateManyWithoutUserInput>;
+  newLikes?: Maybe<NewLikeCreateManyWithoutUserInput>;
   comments?: Maybe<CommentCreateManyWithoutUserInput>;
   loginSecret?: Maybe<String>;
 }
@@ -2232,6 +2564,7 @@ export interface UserUpdateWithoutRoomsDataInput {
   following?: Maybe<UserUpdateManyWithoutFollowersInput>;
   posts?: Maybe<PostUpdateManyWithoutUserInput>;
   likes?: Maybe<LikeUpdateManyWithoutUserInput>;
+  newLikes?: Maybe<NewLikeUpdateManyWithoutUserInput>;
   comments?: Maybe<CommentUpdateManyWithoutUserInput>;
   loginSecret?: Maybe<String>;
 }
@@ -2251,12 +2584,24 @@ export interface MessageUpdateManyMutationInput {
   test?: Maybe<String>;
 }
 
+export interface NewLikeCreateInput {
+  id?: Maybe<ID_Input>;
+  user?: Maybe<UserCreateOneWithoutNewLikesInput>;
+  post?: Maybe<PostCreateOneWithoutNewLikesInput>;
+}
+
+export interface NewLikeUpdateInput {
+  user?: Maybe<UserUpdateOneWithoutNewLikesInput>;
+  post?: Maybe<PostUpdateOneWithoutNewLikesInput>;
+}
+
 export interface PostCreateInput {
   id?: Maybe<ID_Input>;
   files?: Maybe<FileCreateManyWithoutPostInput>;
   location?: Maybe<String>;
   caption: String;
   likes?: Maybe<LikeCreateManyWithoutPostInput>;
+  newLikes?: Maybe<NewLikeCreateManyWithoutPostInput>;
   comments?: Maybe<CommentCreateManyWithoutPostInput>;
   user?: Maybe<UserCreateOneWithoutPostsInput>;
   createdTime?: Maybe<String>;
@@ -2267,6 +2612,7 @@ export interface PostUpdateInput {
   location?: Maybe<String>;
   caption?: Maybe<String>;
   likes?: Maybe<LikeUpdateManyWithoutPostInput>;
+  newLikes?: Maybe<NewLikeUpdateManyWithoutPostInput>;
   comments?: Maybe<CommentUpdateManyWithoutPostInput>;
   user?: Maybe<UserUpdateOneWithoutPostsInput>;
   createdTime?: Maybe<String>;
@@ -2300,6 +2646,7 @@ export interface UserUpdateInput {
   following?: Maybe<UserUpdateManyWithoutFollowersInput>;
   posts?: Maybe<PostUpdateManyWithoutUserInput>;
   likes?: Maybe<LikeUpdateManyWithoutUserInput>;
+  newLikes?: Maybe<NewLikeUpdateManyWithoutUserInput>;
   comments?: Maybe<CommentUpdateManyWithoutUserInput>;
   rooms?: Maybe<RoomUpdateManyWithoutParticipantsInput>;
   loginSecret?: Maybe<String>;
@@ -2357,6 +2704,17 @@ export interface MessageSubscriptionWhereInput {
   AND?: Maybe<MessageSubscriptionWhereInput[] | MessageSubscriptionWhereInput>;
   OR?: Maybe<MessageSubscriptionWhereInput[] | MessageSubscriptionWhereInput>;
   NOT?: Maybe<MessageSubscriptionWhereInput[] | MessageSubscriptionWhereInput>;
+}
+
+export interface NewLikeSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<NewLikeWhereInput>;
+  AND?: Maybe<NewLikeSubscriptionWhereInput[] | NewLikeSubscriptionWhereInput>;
+  OR?: Maybe<NewLikeSubscriptionWhereInput[] | NewLikeSubscriptionWhereInput>;
+  NOT?: Maybe<NewLikeSubscriptionWhereInput[] | NewLikeSubscriptionWhereInput>;
 }
 
 export interface PostSubscriptionWhereInput {
@@ -2489,6 +2847,15 @@ export interface UserPromise extends Promise<User>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
+  newLikes: <T = FragmentableArray<NewLike>>(args?: {
+    where?: NewLikeWhereInput;
+    orderBy?: NewLikeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   comments: <T = FragmentableArray<Comment>>(args?: {
     where?: CommentWhereInput;
     orderBy?: CommentOrderByInput;
@@ -2550,6 +2917,15 @@ export interface UserSubscription
   likes: <T = Promise<AsyncIterator<LikeSubscription>>>(args?: {
     where?: LikeWhereInput;
     orderBy?: LikeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  newLikes: <T = Promise<AsyncIterator<NewLikeSubscription>>>(args?: {
+    where?: NewLikeWhereInput;
+    orderBy?: NewLikeOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -2623,6 +2999,15 @@ export interface UserNullablePromise
     first?: Int;
     last?: Int;
   }) => T;
+  newLikes: <T = FragmentableArray<NewLike>>(args?: {
+    where?: NewLikeWhereInput;
+    orderBy?: NewLikeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   comments: <T = FragmentableArray<Comment>>(args?: {
     where?: CommentWhereInput;
     orderBy?: CommentOrderByInput;
@@ -2675,6 +3060,15 @@ export interface PostPromise extends Promise<Post>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
+  newLikes: <T = FragmentableArray<NewLike>>(args?: {
+    where?: NewLikeWhereInput;
+    orderBy?: NewLikeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   comments: <T = FragmentableArray<Comment>>(args?: {
     where?: CommentWhereInput;
     orderBy?: CommentOrderByInput;
@@ -2714,6 +3108,15 @@ export interface PostSubscription
     first?: Int;
     last?: Int;
   }) => T;
+  newLikes: <T = Promise<AsyncIterator<NewLikeSubscription>>>(args?: {
+    where?: NewLikeWhereInput;
+    orderBy?: NewLikeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
   comments: <T = Promise<AsyncIterator<CommentSubscription>>>(args?: {
     where?: CommentWhereInput;
     orderBy?: CommentOrderByInput;
@@ -2747,6 +3150,15 @@ export interface PostNullablePromise
   likes: <T = FragmentableArray<Like>>(args?: {
     where?: LikeWhereInput;
     orderBy?: LikeOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  newLikes: <T = FragmentableArray<NewLike>>(args?: {
+    where?: NewLikeWhereInput;
+    orderBy?: NewLikeOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -2819,6 +3231,40 @@ export interface LikeNullablePromise
   id: () => Promise<ID_Output>;
   user: <T = UserPromise>() => T;
   post: <T = PostPromise>() => T;
+}
+
+export interface NewLike {
+  id: ID_Output;
+  createdAt?: DateTimeOutput;
+  updatedAt?: DateTimeOutput;
+}
+
+export interface NewLikePromise extends Promise<NewLike>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  user: <T = UserPromise>() => T;
+  post: <T = PostPromise>() => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface NewLikeSubscription
+  extends Promise<AsyncIterator<NewLike>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  user: <T = UserSubscription>() => T;
+  post: <T = PostSubscription>() => T;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface NewLikeNullablePromise
+  extends Promise<NewLike | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  user: <T = UserPromise>() => T;
+  post: <T = PostPromise>() => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface Room {
@@ -3171,6 +3617,60 @@ export interface AggregateMessagePromise
 
 export interface AggregateMessageSubscription
   extends Promise<AsyncIterator<AggregateMessage>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface NewLikeConnection {
+  pageInfo: PageInfo;
+  edges: NewLikeEdge[];
+}
+
+export interface NewLikeConnectionPromise
+  extends Promise<NewLikeConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<NewLikeEdge>>() => T;
+  aggregate: <T = AggregateNewLikePromise>() => T;
+}
+
+export interface NewLikeConnectionSubscription
+  extends Promise<AsyncIterator<NewLikeConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<NewLikeEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateNewLikeSubscription>() => T;
+}
+
+export interface NewLikeEdge {
+  node: NewLike;
+  cursor: String;
+}
+
+export interface NewLikeEdgePromise extends Promise<NewLikeEdge>, Fragmentable {
+  node: <T = NewLikePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface NewLikeEdgeSubscription
+  extends Promise<AsyncIterator<NewLikeEdge>>,
+    Fragmentable {
+  node: <T = NewLikeSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateNewLike {
+  count: Int;
+}
+
+export interface AggregateNewLikePromise
+  extends Promise<AggregateNewLike>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateNewLikeSubscription
+  extends Promise<AsyncIterator<AggregateNewLike>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
@@ -3538,6 +4038,53 @@ export interface MessagePreviousValuesSubscription
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
+export interface NewLikeSubscriptionPayload {
+  mutation: MutationType;
+  node: NewLike;
+  updatedFields: String[];
+  previousValues: NewLikePreviousValues;
+}
+
+export interface NewLikeSubscriptionPayloadPromise
+  extends Promise<NewLikeSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = NewLikePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = NewLikePreviousValuesPromise>() => T;
+}
+
+export interface NewLikeSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<NewLikeSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = NewLikeSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = NewLikePreviousValuesSubscription>() => T;
+}
+
+export interface NewLikePreviousValues {
+  id: ID_Output;
+  createdAt?: DateTimeOutput;
+  updatedAt?: DateTimeOutput;
+}
+
+export interface NewLikePreviousValuesPromise
+  extends Promise<NewLikePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface NewLikePreviousValuesSubscription
+  extends Promise<AsyncIterator<NewLikePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
 export interface PostSubscriptionPayload {
   mutation: MutationType;
   node: Post;
@@ -3761,6 +4308,10 @@ export const models: Model[] = [
   },
   {
     name: "Message",
+    embedded: false
+  },
+  {
+    name: "NewLike",
     embedded: false
   }
 ];

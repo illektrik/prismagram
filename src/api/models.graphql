@@ -13,6 +13,7 @@ type User {
   following: [User!]!
   posts: [Post!]!
   likes: [Like!]!
+  newLikes: [NewLike!]!
   comments: [Comment!]!
   rooms: [Room!]!
   loginSecret: String
@@ -26,6 +27,7 @@ type Post {
   location: String
   caption: String!
   likes: [Like!]!
+  newLikes: [NewLike!]!
   comments: [Comment!]!
   isLiked: Boolean!
   likeCount: Int!
@@ -81,6 +83,14 @@ type Message {
 type UserProfile {
   user: User!
   posts: [Post!]!
+  createdAt: String
+  updatedAt: String
+}
+
+type NewLike {
+  id: ID!
+  user: User!
+  post: Post!
   createdAt: String
   updatedAt: String
 }

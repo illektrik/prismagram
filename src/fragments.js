@@ -61,6 +61,18 @@ export const ROOM_FRAGMENT = `
   }
 `;
 
+export const NEWLIKE_FRAGMENT = `
+  fragment NewLikeParts on NewLike {
+    id
+    user {
+      id
+    }
+    post {
+      id
+    }
+  }
+`;
+
 export const SEE_USER_FRAGMENT =`
   fragment UserParts on User {
     id
