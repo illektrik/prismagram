@@ -7,7 +7,7 @@ const s3 = new aws.S3({accessKeyId: process.env.AMAZON_KEY, secretAccessKey: pro
 const upload = multer({
   storage: multerS3({
     s3,
-    bucket: 'prismagram-upload',
+    bucket: 'prismaupload',
     metadata: function (req, file, cb) {
       cb(null, {fieldName: file.fieldname});
     },

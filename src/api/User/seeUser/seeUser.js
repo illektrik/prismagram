@@ -7,7 +7,7 @@ export default {
     seeUser: async (_, args) => {
       const {userName} = args;
       const user = await prisma.user({userName}).$fragment(SEE_USER_FRAGMENT);
-      const posts = await prisma.user({userName}).posts().$fragment(FULL_POST_FRAGMENT);
+      const posts = await prisma.user({userName}).posts({orderBy: 'createdAt_DESC'}).$fragment(FULL_POST_FRAGMENT);
       return {
         user,
         posts
