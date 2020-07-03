@@ -66,10 +66,32 @@ export const NEWLIKE_FRAGMENT = `
     id
     user {
       id
+      avatar
+      userName
     }
     post {
       id
+      files {
+      url
     }
+  }
+  }
+`;
+
+export const LIKE_FRAGMENT = `
+  fragment LikeParts on Like {
+    id
+    user {
+      id
+      avatar
+      userName
+    }
+    post {
+      id
+      files {
+      url
+    }
+  }
   }
 `;
 
